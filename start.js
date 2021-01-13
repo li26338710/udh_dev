@@ -1,4 +1,4 @@
-const PORT = 8888; //访问端口号8888  //端口号最好为6000以上
+const PORT = 8899; //访问端口号8888  //端口号最好为6000以上
 var http = require('http'); //引入http模块
 var fs = require('fs'); //引入fs模块
 var url = require('url');//引入url模块
@@ -29,7 +29,7 @@ var MIME_TYPE = {
 
 
 var proxy = httpProxy.createProxyServer({
-    target: 'http://10.38.8.76:9000/'
+    target: 'http://localhost:9000/'
 })
 proxy.on('error', function(err, req, res){
     res.writeHead(500, {
