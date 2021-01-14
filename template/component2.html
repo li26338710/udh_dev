@@ -2,5 +2,82 @@
     <button @click="methodT">按钮test</button>
     
     <comp2></comp2>
-    <comp></comp>
+
+
+<table class="table table-bordered table-condensed">
+    <thead>
+        <tr class="active">
+            <th width="20%">商品</th>
+            <th width="10%">规格</th>
+            <th width="5%">起订量/限购量</th>
+            <th width="10%">单价</th>
+            <th width="10%">计价数量</th>
+            <th width="10%" class="ng-scope">销售数量</th>
+            <th width="5%">金额</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="sku in skuList" class="ng-scope">
+            <td rowspan="1" ng-if="sku.rowspan" style="vertical-align: middle; " class="ng-scope">
+                <div class="imgdiv ng-hide" ng-show="isShowPicture">
+                    111
+                </div>
+                <div class="proDetail p-t-10">
+                <p class="text-color60 ng-binding" ng-bind="sku.product.cCode">111111111</p>
+                </div>
+            </td>
+            <td>
+                <upmark ng-bind="sku.cSpecDescription" class="ng-binding"></upmark>
+            </td>
+            <td>
+                <p ng-bind="(sku.iMinOrderQuantity||DEFAULT_MIN_COUNT) + sku.oUnit.cName+'起订'" class="ng-binding">0套起订</p>
+            </td>
+            <td>
+                <upmark ng-bind="sku.fSalePrice | upCoinOperater | upFree | upHideString:'fSalePrice'" class="ng-binding">￥0</upmark>
+            </td>
+            <td class="model-body-btn text-center">
+                <p class="ng-binding">
+                起订量:
+                <em ng-bind="sku.iMinOrderQuantity||DEFAULT_MIN_COUNT" class="ng-binding">0</em>套</p>
+            </td>
+            <td class="model-body-btn ng-scope" ng-if="isOpenNauxUnit &amp;&amp; sku.__auxEnable">
+                aaaa
+            </td>
+            <td class="text-danger ng-binding" title="￥" >
+                bbb
+            </td>
+        </tr>
+        <tr ng-repeat="sku in skuList" class="ng-scope">
+            <td rowspan="1" ng-if="sku.rowspan" style="vertical-align: middle; " class="ng-scope">
+                <div class="imgdiv ng-hide" ng-show="isShowPicture">
+                    111222
+                </div>
+                <div class="proDetail p-t-10">
+                <p class="text-color60 ng-binding" ng-bind="sku.product.cCode">111111111222</p>
+                </div>
+            </td>
+            <td>
+                <upmark ng-bind="sku.cSpecDescription" class="ng-binding"></upmark>
+            </td>
+            <td>
+                <p ng-bind="(sku.iMinOrderQuantity||DEFAULT_MIN_COUNT) + sku.oUnit.cName+'起订'" class="ng-binding">0套起订</p>
+            </td>
+            <td>
+                <upmark ng-bind="sku.fSalePrice | upCoinOperater | upFree | upHideString:'fSalePrice'" class="ng-binding">￥0</upmark>
+            </td>
+            <td class="model-body-btn text-center">
+                <p class="ng-binding">
+                起订量:
+                <em ng-bind="sku.iMinOrderQuantity||DEFAULT_MIN_COUNT" class="ng-binding">1</em>套</p>
+            </td>
+            <td class="model-body-btn ng-scope" ng-if="isOpenNauxUnit &amp;&amp; sku.__auxEnable">
+                aaaa22
+            </td>
+            <td class="text-danger ng-binding" title="￥" >
+                bbb22
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
 </div>

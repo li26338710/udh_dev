@@ -10,7 +10,7 @@
 // ){
 
 requirejs([
-  'text!template/component4.html',
+  'text!template/component5.html',
   'component/udh/index'
 ], function (
   html,
@@ -19,7 +19,7 @@ requirejs([
           console.log(testjs);
   console.log("测试js "); 
 
-    webpackJsonpCallback('routes/component4.js', function() {
+    webpackJsonpCallback('routes/component5.js', function() {
       return {
           template : html,
       }

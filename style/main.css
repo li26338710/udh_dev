@@ -1,5 +1,5 @@
 .m-container{
-    background: #0f0f0f;
+    background: #ffffff;
     height: 100%;
 }
 
@@ -96,4 +96,12 @@
 }
 .e-data-num span{
     font-size:20px;
+}
+
+.table tr th{
+    border: 2px solid #413d31;
+}
+
+.table tr td{
+    border: 1px solid #af9c7b;
 }

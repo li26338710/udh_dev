@@ -87,9 +87,9 @@
                             webpack_require('routes/component3.js', resolve);
                         }
                     },{
-                        path: '/path4',
+                        path: '/path5',
                         component: function(resolve) {
-                            webpack_require('routes/component4.js', resolve);
+                            webpack_require('routes/component5.js', resolve);
                     },
                     }]
             });

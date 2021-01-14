@@ -1,35 +1,39 @@
-define( "vue",
-        "jquery",
-        "common_VM_Extend.js", function () {
-    var api_domain = "";
-    var api_path_productDetail = "";
-
-    // Static params for UDH API.
-    var api_secret = "secret";
-
-    var api_param = {'appkey': '',
-                     'codes': '',
-                     'format': 'json',
-                     'token': ''
-                     }
+define([
+    "vue",
+    "jquery",
+    "common_VM_Extend.js"
+], function (
+    vue,
+    $,
+    common
+    ) {
+       //Define API url (Test Env)
+       var api_domain = "https://next.udh.yonyouup.com";
+       var api_path_productDetail = "/rs/Products/getProductsDetail";
+       
+       // Define Static params for UDH API (Test Env).
+       var api_secret = "db45dabd3ff1821c79720e451ea973f7498d817a";
+       var api_param = {
+           'appkey': 'b15f9d91f9534153b50a8d44349baff948d0d22f',
+           'codes': '',
+           'format': 'json',
+           'token': '!*2PuNOT73GFPQkkbNEfaf5Y4WdA0aZqcFQCvRbjD2DaM*-'
+        }
 
     var getProductDetail = {
         getCode : function(codes){
-            // Demo
-            // var str = "";
-            // codes.forEach(function (value){
-            //     str = str + value
-            // });
-
+            // 
             api_param['codes'] = codes.join();
-
             console.log("codes : " + api_param['codes']);
-
         },
         getProductDesc : function(api_param , api_secret){
+            // Description API url
             var api_url = api_domain + api_path_productDetail;
+
+            //get sign param
             var sign = createSign(api_param , api_secret);
 
+            //contains param map
             var param_str = "?";
             api_param.forEach(function (value, key, map) {
                 param_str = param_str + key + "=" + value + "&";
@@ -48,6 +52,7 @@ define( "vue",
             });
             sign = sign + api_secret;
 
+            console.log("sign before md5" + sign)
             var sign_md5 = md5(sign);
 
             return sign_md5;
