@@ -23,7 +23,7 @@
                     111
                 </div>
                 <div class="proDetail p-t-10">
-                <p class="text-color60 ng-binding" ng-bind="sku.product.cCode">111111111</p>
+                <p class="text-color60 ng-binding" ng-bind="sku.product.cCode">010101003</p>
                 </div>
             </td>
             <td>
@@ -53,7 +53,67 @@
                     111222
                 </div>
                 <div class="proDetail p-t-10">
-                <p class="text-color60 ng-binding" ng-bind="sku.product.cCode">111111111222</p>
+                <p class="text-color60 ng-binding" ng-bind="sku.product.cCode">010101002</p>
+                </div>
+            </td>
+            <td>
+                <upmark ng-bind="sku.cSpecDescription" class="ng-binding"></upmark>
+            </td>
+            <td>
+                <p ng-bind="(sku.iMinOrderQuantity||DEFAULT_MIN_COUNT) + sku.oUnit.cName+'起订'" class="ng-binding">0套起订</p>
+            </td>
+            <td>
+                <upmark ng-bind="sku.fSalePrice | upCoinOperater | upFree | upHideString:'fSalePrice'" class="ng-binding">￥0</upmark>
+            </td>
+            <td class="model-body-btn text-center">
+                <p class="ng-binding">
+                起订量:
+                <em ng-bind="sku.iMinOrderQuantity||DEFAULT_MIN_COUNT" class="ng-binding">1</em>套</p>
+            </td>
+            <td class="model-body-btn ng-scope" ng-if="isOpenNauxUnit &amp;&amp; sku.__auxEnable">
+                aaaa22
+            </td>
+            <td class="text-danger ng-binding" title="￥" >
+                bbb22
+            </td>
+        </tr>
+        <tr ng-repeat="sku in skuList" class="ng-scope">
+            <td rowspan="1" ng-if="sku.rowspan" style="vertical-align: middle; " class="ng-scope">
+                <div class="imgdiv ng-hide" ng-show="isShowPicture">
+                    555555555
+                </div>
+                <div class="proDetail p-t-10">
+                <p class="text-color60 ng-binding" ng-bind="sku.product.cCode">5555</p>
+                </div>
+            </td>
+            <td>
+                <upmark ng-bind="sku.cSpecDescription" class="ng-binding"></upmark>
+            </td>
+            <td>
+                <p ng-bind="(sku.iMinOrderQuantity||DEFAULT_MIN_COUNT) + sku.oUnit.cName+'起订'" class="ng-binding">0套起订</p>
+            </td>
+            <td>
+                <upmark ng-bind="sku.fSalePrice | upCoinOperater | upFree | upHideString:'fSalePrice'" class="ng-binding">￥0</upmark>
+            </td>
+            <td class="model-body-btn text-center">
+                <p class="ng-binding">
+                起订量:
+                <em ng-bind="sku.iMinOrderQuantity||DEFAULT_MIN_COUNT" class="ng-binding">1</em>套</p>
+            </td>
+            <td class="model-body-btn ng-scope" ng-if="isOpenNauxUnit &amp;&amp; sku.__auxEnable">
+                aaaa22
+            </td>
+            <td class="text-danger ng-binding" title="￥" >
+                bbb22
+            </td>
+        </tr>
+        <tr ng-repeat="sku in skuList" class="ng-scope">
+            <td rowspan="1" ng-if="sku.rowspan" style="vertical-align: middle; " class="ng-scope">
+                <div class="imgdiv ng-hide" ng-show="isShowPicture">
+                    1112221fdsa
+                </div>
+                <div class="proDetail p-t-10">
+                <p class="text-color60 ng-binding" ng-bind="sku.product.cCode">010115105</p>
                 </div>
             </td>
             <td>
