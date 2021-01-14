@@ -1,13 +1,13 @@
 define([
+    "common_VM_Extend.js",
     "vue",
     "jquery",
-    "echarts",
-    "css!component/echartstest/scoped-style.css"
+    "./md5.min.js"
 ], function (
+    common,
     Vue,
     $,
-    echarts,
-    css
+    md5
 ) {
     //Define API url (Test Env)
     var api_domain = "https://next.udh.yonyouup.com";
@@ -42,18 +42,10 @@ define([
             //拦截 getQiuckProducts服务，把返回数据中的 data改成
             //if (response && response.data.code === 200 && response.url.indexOf('/api/archives/product/getQiuckProducts') > -1) {
 
-            //获取页面table中的cCode
-            //var productData = "";
-
-            // var prodList = productData.map(function (item) {
-            //     return item['cCode'];
-            // });
-
             this.getCode();
             var descList = this.getProductDesc(api_param, api_secret);
 
             //重置response
-            //var descList = ["111111111","111111111222"];
             console.log("descList:"+descList)
                 
                 
@@ -62,6 +54,7 @@ define([
         },
         methods: {
             getDescByAPI: function (url) {
+                console.log("url 1： " + url)
                 console.log("测试方法");
                 var jsondata;
                 $.get({
@@ -126,7 +119,6 @@ define([
 
                 param_str = param_str + "sign=" + sign;
 
-                console.log("url ： " + api_url + param_str)
                 return this.getDescByAPI(api_url + param_str);
             },
             createSign: function (api_param, api_secret) {
@@ -142,9 +134,9 @@ define([
                 sign = sign + api_secret;
 
                 console.log("sign before md5 ： " + sign)
-                //var sign_md5 = md5(sign);
+                var sign_md5 = md5(sign).toUpperCase();
 
-                return sign;
+                return sign_md5;
             },
             resetDom: function ( descList) {
                 console.log("resetDom");
@@ -156,7 +148,7 @@ define([
                     console.log("code : " +aa);
                     for (item in descList){
                         if (aa == descList[item].cCode){
-                            $(this).find("td:last").after("<td>"+descList[item].cDescription+"</td>");
+                            $(this).find("td:last").after("<td><span>"+descList[item].cDescription+"</span></td>");
                             flag = true;
                             break;
                         }
