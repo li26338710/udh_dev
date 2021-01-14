@@ -9,7 +9,9 @@
             "jquery":"node_modules/jquery/dist/jquery.min",
             "echarts" : 'node_modules/echarts/dist/echarts.min',
             'webpackjsonp': 'js/webpackjsonp',
-            'eBoxComp' : 'component/echartsbox/index'
+            'eBoxComp' : 'component/echartsbox/index',
+            'udh':'component/udh/index',
+            "testjs" : "component/udh/testjs"
         },
         shim: {
             "vue-router":["vue"],
@@ -83,9 +85,13 @@
                         path: '/path3',
                         component: function(resolve) {
                             webpack_require('routes/component3.js', resolve);
-                    }
-                },
-                ]
+                        }
+                    },{
+                        path: '/path4',
+                        component: function(resolve) {
+                            webpack_require('routes/component4.js', resolve);
+                    },
+                    }]
             });
             var app = new Vue({
                 el: '#app',

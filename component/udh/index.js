@@ -1,4 +1,6 @@
-define('common_VM_Extend.js', function () {
+define( "vue",
+        "jquery",
+        "common_VM_Extend.js", function () {
     var api_domain = "";
     var api_path_productDetail = "";
 
@@ -34,9 +36,8 @@ define('common_VM_Extend.js', function () {
             });
             param_str = param_str + "sign=" + sign;
 
+            console.log("url" + api_url+param_str)
             return methodT(api_url+param_str);
-
-            
         },
         createSign : function(api_param, api_secret){
 
@@ -75,11 +76,12 @@ define('common_VM_Extend.js', function () {
 
     var common_VM_Extend = {
 		mounted: function (params) {
+            console.log("monted")
 			//$('a[href="/agentpage/Orders/quickOrder"]').hide(); //举例 隐藏快速下单 按钮
 		},
 		afterRequest: function (response) {
 			//拦截 getQiuckProducts服务，把返回数据中的 data改成
-			if (response && response.data.code === 200 && response.url.indexOf('api/archives/product/getQiuckProducts') > -1) {
+			if (response && response.data.code === 200 && response.url.indexOf('/api/archives/product/getQiuckProducts') > -1) {
                 var productData = response.data.data.data;
                 
                 var prodList=productData.map(function (item) {

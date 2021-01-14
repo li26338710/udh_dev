@@ -1,15 +1,18 @@
 requirejs([
-    'text!template/component3.html'
+    'text!template/component3.html',
+    'component/udh/index',
+    './component/udh/index.js'
 ],function(
     html,
-    comp3
+    udh
 ){
-    console.log(comp3)
+    console.log(udh)
+    udh.methodT();
     webpackJsonpCallback('routes/component3.js', function() {
         return {
             template : html,
             components : {
-                'comp3' : comp3
+                'comp3' : udh
             },
             data :function(){
                 return {
@@ -39,22 +42,11 @@ requirejs([
                     ]
                 }
             },
+            //mounted : 
             methods : {
                 methodT : function(){
                     console.log("测试方法");
-                    $.ajax({
-                        url : '/api/v1/login',
-                        type: "post",
-                        dataType: "json",
-                        headers: {'Content-Type': 'application/json;charset=UTF-8'},
-                        data : JSON.stringify({username:"admin@haipingx.com",password:"111qqq"}),
-                        success : function(){
-                            console.log(666)
-                        },
-                        error : function(){
-                            console.log(7777)
-                        }
-                    })
+                    
                 },
             }
         }

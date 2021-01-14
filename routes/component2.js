@@ -1,7 +1,6 @@
 
 requirejs([
     'text!template/component2.html',
-    'component/echartstest/index',
     'component/comp/index',
     'component/comp2/index'
 ],function(
