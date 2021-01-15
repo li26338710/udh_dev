@@ -31,14 +31,6 @@ define([
         created: function () {
         },
         mounted: function (params) {
-            $('button').text("aaa");
-            $th = $("<th>商品描述</th>");
-            //$col = $("<td>增加的列</td>");
-            $(".table>thead>tr").append($th);
-            //$(".table>tbody>tr").append($col);
-
-
-
             //拦截 getQiuckProducts服务，把返回数据中的 data改成
             //if (response && response.data.code === 200 && response.url.indexOf('/api/archives/product/getQiuckProducts') > -1) {
 
@@ -46,16 +38,18 @@ define([
             var descList = this.getProductDesc(api_param, api_secret);
 
             //重置response
-            console.log("descList:"+descList)
+            console.log("descList:"+descList);
                 
-                
-            this.resetDom(descList)
-            console.log('这是mounted')
+            $th = $("<th>商品描述</th>");
+            //$col = $("<td>增加的列</td>");
+            $(".table>thead>tr").append($th);
+            //$(".table>tbody>tr").append($col);
+            this.resetDom(descList);
+            console.log('这是mounted');
         },
         methods: {
             getDescByAPI: function (url) {
-                console.log("url 1： " + url)
-                console.log("测试方法");
+                console.log("url 1： " + url);
                 var jsondata;
                 $.get({
                     //url: 'https://next.udh.yonyouup.com/rs/Products/getProductsDetail?code=010101003,010101002&format=json&sign=099B8535FC91F75F635414DD6986A0FD&appkey=b15f9d91f9534153b50a8d44349baff948d0d22f&token=!*2PuNOT73GFPQkkbNEfaf5Y4WdA0aZqcFQCvRbjD2DaM*-&callback=?',
@@ -67,8 +61,8 @@ define([
                     //jsonpCallback:"success_jsonpCallback",
                     headers: { 'Content-Type': 'application/json; charset=utf-8' },
                     success: function (response) {
-                        console.log('data:' + response.data.data)
-                        jsondata = response.data.data
+                        console.log('data:' + response.data.data);
+                        jsondata = response.data.data;
                         console.log(response.data.data.length);
 
                         // for(let i = 0; i　< response.data.data.length; i++) {
@@ -78,34 +72,33 @@ define([
                         //     descList[i].cDescription = response.data.data[i].cDescription;
                         // }
 
-
-
-                        //return response.data.data;
                     },
                     error: function (error) {
-                        console.log(error)
+                        console.log("get product description error." + error);
                     }
                 })
                 // $.getJSON('https://next.udh.yonyouup.com/rs/Products/getProductsDetail?code=010101003,010101002&format=json&sign=099B8535FC91F75F635414DD6986A0FD&appkey=b15f9d91f9534153b50a8d44349baff948d0d22f&token=!*2PuNOT73GFPQkkbNEfaf5Y4WdA0aZqcFQCvRbjD2DaM*-&jsoncallback=?',
                 // function(json){
                 //     console.log("response : " + json)
                 // });
-                console.log("array:"+jsondata)
+                console.log("array:"+jsondata);
                 return jsondata;
             },
             getCode: function () {
-                // 
+                // Get codes from HTML DOM
                 var codes =new Array();
                 
                 $(".table tbody").find("tr").each(function(index,element){
                     var code = $(this).find("p[ng-bind='sku.product.cCode']").text();
                     codes[index] = code;
                 });
-                api_param['codes'] = codes.join();
+                if(codes.length > 0){
+                    api_param['codes'] = codes.join();
+                }
                 console.log("codes : " + api_param['codes']);
             },
             getProductDesc: function (api_param, api_secret) {
-                // Description API url
+                // Product Description API url
                 var api_url = api_domain + api_path_productDetail;
 
                 //get sign param
@@ -122,7 +115,7 @@ define([
                 return this.getDescByAPI(api_url + param_str);
             },
             createSign: function (api_param, api_secret) {
-
+                // generate param sign
                 var sign = "";
                 sign = api_secret;
 
@@ -133,37 +126,46 @@ define([
 
                 sign = sign + api_secret;
 
-                console.log("sign before md5 ： " + sign)
+                console.log("sign before md5 ： " + sign);
                 var sign_md5 = md5(sign).toUpperCase();
 
                 return sign_md5;
             },
-            resetDom: function ( descList) {
+            resetDom: function (descList) {
                 console.log("resetDom");
-                var flag = false;
-                //重置response
-                $(".table tbody").find("tr").each(function(index,element){
 
-                    var aa = $(this).find("p[ng-bind='sku.product.cCode']").text();
-                    console.log("code : " +aa);
-                    for (item in descList){
-                        if (aa == descList[item].cCode){
-                            $(this).find("td:last").after("<td><span>"+descList[item].cDescription+"</span></td>");
-                            flag = true;
-                            break;
+                // if descList is not empty
+                if(descList && typeof(descList)!="undefined" && descList!=0){
+                    var flag = false;
+
+                    //add description to table dom
+                    $(".table tbody").find("tr").each(function(index,element){
+
+                        var code = $(this).find("p[ng-bind='sku.product.cCode']").text();
+                        console.log("code : " +code);
+                        for (item in descList){
+                            if (code == descList[item].cCode){
+                                var desc = descList[item].cDescription.length>25?descList[item].cDescription.substring(0,25)+"...":descList[item].cDescription;
+                                $(this).find("td:last").after("<td><p title=\""+ descList[item].cDescription +"\">"+desc+"</span></td>");
+                                flag = true;
+                                break;
+                            }
                         }
-                    }
 
-                    if(!flag){
-                        $(this).find("td:last").after("<td>-</td>");
-                    }
-                    flag = false
-                });
+                        // If there has no description data, add '-' to table.
+                        if(!flag){
+                            $(this).find("td:last").after("<td>-</td>");
+                        }
+                        // reset flag
+                        flag = false;
+                    });
+                } else {
+                    $col = $("<td>-</td>");
+                    $(".table>tbody>tr").append($col);
+                }
             }
-
         }
     });
 
     return common_VM_Extend
-
 })
